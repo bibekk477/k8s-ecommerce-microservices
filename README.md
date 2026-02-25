@@ -1,4 +1,4 @@
-# Online Boutique – Minikube Deployment Guide
+# Simple microservice ecommerce – Minikube Deployment
 
 A cloud-native microservices demo application deployed locally using Minikube.
 
