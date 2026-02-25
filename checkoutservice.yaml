@@ -17,6 +17,16 @@ spec:
           image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.8.0
           ports:
             - containerPort: 5050
+          livenessProbe:
+            grpc:
+              port: 5050
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            grpc:
+              port: 5050
+            initialDelaySeconds: 5
+            periodSeconds: 5
           env:
             - name: PORT
               value: "5050"
