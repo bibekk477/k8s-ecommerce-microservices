@@ -17,6 +17,16 @@ spec:
           image: gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0
           ports:
             - containerPort: 7000
+          livenessProbe:
+            grpc:
+              port: 7000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            grpc:
+              port: 7000
+            initialDelaySeconds: 5
+            periodSeconds: 5
           env:
             - name: PORT
               value: "7000"
