@@ -18,6 +18,19 @@ spec:
           image: gcr.io/google-samples/microservices-demo/frontend:v0.8.0
           ports:
             - containerPort: 8080
+          # Health checks for frontend are HTTP-based, as it serves HTTP traffic and does not have gRPC endpoints.
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /_healthz
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /_healthz
+            initialDelaySeconds: 5
+            periodSeconds: 5
           env:
             - name: PORT
               value: "8080"
