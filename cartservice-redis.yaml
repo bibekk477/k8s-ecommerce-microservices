@@ -17,6 +17,18 @@ spec:
           image: gcr.io/google-samples/microservices-demo/cartservice:v0.8.0
           ports:
             - containerPort: 7070
+          livenessProbe:
+            grpc:
+              port: 7070
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            grpc:
+              port: 7070
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
           env:
             - name: PORT
               value: "7070"
@@ -63,6 +75,20 @@ spec:
           volumeMounts:
             - name: redis-data
               mountPath: /data
+
+            # Redis is TCP-based → Use TCP probe
+
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+            periodSeconds: 5
       volumes:
         - name: redis-data
           emptyDir: {}
