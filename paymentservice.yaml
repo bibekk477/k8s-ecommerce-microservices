@@ -17,6 +17,16 @@ spec:
           image: gcr.io/google-samples/microservices-demo/paymentservice:v0.8.0
           ports:
             - containerPort: 50051
+          livenessProbe:
+            grpc:
+              port: 50051
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            grpc:
+              port: 50051
+            initialDelaySeconds: 5
+            periodSeconds: 5
           env:
             - name: PORT
               value: "50051"
